@@ -19,7 +19,7 @@ async function loadManufacturers() {
         <App manufacturers={data.manufacturers} />
       </React.StrictMode>
     );
-    console.log(data, "-----");
+    console.log(data, "manufacturers-----");
   } else {
     console.error(response);
   }
@@ -35,11 +35,12 @@ async function loadVehicleModels() {
         <App models={data.models} />
       </React.StrictMode>
     );
-    console.log(data.models, "----")
+    console.log(data, "models----")
   } else {
     console.error(response);
   }
 }
+loadVehicleModels();
 
 async function loadAutos() {
   const response = await fetch('http://localhost:8100/api/automobiles/');
@@ -57,5 +58,4 @@ async function loadAutos() {
 }
 
 loadAutos();
-loadVehicleModels();
 loadManufacturers();

@@ -1,9 +1,21 @@
-import React from 'react'
+import React, {useEffect, useState } from 'react'
+
 
 function VehicleModelList(props) {
-    // if (props.models === undefined) {
-    //     return null;
-    // }
+    const [models, setModel] = useState([])
+
+    const fetchData = async () => {
+        const response = await fetch('http://localhost:8100/api/models/')
+        if (response.ok) {
+            const data = await response.json();
+            setModel(data.models)
+        }
+    }
+    useEffect(() => {
+        fetchData();
+
+    }, []);
+
     return (
         <>
         <header>Automobiles</header>
@@ -16,7 +28,7 @@ function VehicleModelList(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.models?.map(model => {
+                {models?.map(model => {
                     return (
                         <tr key={ model.href }>
                             <td>{ model.name }</td>

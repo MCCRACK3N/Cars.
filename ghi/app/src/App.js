@@ -3,11 +3,15 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import ManufacturerList from './ManufacturerList';
 import VehicleModelList from './VehicleModelList';
+import AutoList from './AutoList';
 
 function App(props) {
-  if (props.models === undefined) {
-    return null;
-}
+//   if (props.models === undefined) {
+//     return null;
+// }
+  // if (props.autos === undefined) {
+  //   return null;
+  // }
   return (
     <BrowserRouter>
       <Nav />
@@ -20,7 +24,9 @@ function App(props) {
           <Route path="carmodelslist">
             <Route path="" element={<VehicleModelList models={props.models} />} />
           </Route>
-          <Route></Route>
+          <Route path="autolist">
+            <Route path="" element={<AutoList autos={props.autos} />} />
+          </Route>
         </Routes>
       </div>
 
