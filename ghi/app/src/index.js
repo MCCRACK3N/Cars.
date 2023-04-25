@@ -24,4 +24,38 @@ async function loadManufacturers() {
     console.error(response);
   }
 }
+
+
+async function loadVehicleModels() {
+  const response = await fetch('http://localhost:8100/api/models/');
+  if (response.ok) {
+    const data = await response.json();
+    root.render(
+      <React.StrictMode>
+        <App models={data.models} />
+      </React.StrictMode>
+    );
+    console.log(data.models, "----")
+  } else {
+    console.error(response);
+  }
+}
+
+async function loadAutos() {
+  const response = await fetch('http://localhost:8100/api/automobiles/');
+  if (response.ok) {
+    const data = await response.json();
+    root.render(
+      <React.StrictMode>
+        <App autos={data.autos} />
+      </React.StrictMode>
+    );
+    console.log(data, "autos----")
+  } else {
+    console.error(response);
+  }
+}
+
+loadAutos();
+loadVehicleModels();
 loadManufacturers();
