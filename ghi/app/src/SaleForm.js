@@ -52,18 +52,39 @@ function SaleForm() {
         }
         window.location.reload();
     }
-    const fetchData = async () => {
-        const url = 'http://localhost:8090/api/sales/';
-        const response = await fetch(url);
+    const customerfetchData = async () => {
+        const customerurl = 'http://localhost:8090/api/customers/';
+        const response = await fetch(customerurl);
         if (response.ok) {
             const data = await response.json();
-            setVins(data.vins)
+            console.log(data, "data")
+
             setCustomers(data.customers)
-            setSalespersons(data.salespeople)
+
+        }
+    }
+    const vinfetchdata = async () => {
+        const vinurl = "http://localhost:8100/api/automobiles/"
+        const response = await fetch(vinurl)
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data, "auto data")
+            setVins(data.autos)
+        }
+    }
+    const salefetchdata = async () => {
+        const saleurl = "http://localhost:8090/api/salespeople/"
+        const response = await fetch(saleurl)
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data, "salesperson data")
+            setSalespersons(data.salepeople)
         }
     }
     useEffect(() => {
-        fetchData();
+        customerfetchData();
+        vinfetchdata();
+        salefetchdata();
     }, []);
 
     return (
@@ -91,10 +112,10 @@ function SaleForm() {
               id="saleperson"
               className="form-select" value={salesperson} >
                 <option value="">Choose a salesperson</option>
-                {salespersons?.map(saleperson => {
+                {salespersons?.map(salesperson => {
                     return (
-                        <option key={saleperson.id} value={saleperson.id}>
-                            {saleperson.first_name} {salesperson.last_name}
+                        <option key={salesperson.id} value={salesperson.id}>
+                            {salesperson.first_name} {salesperson.last_name}
                         </option>
                     )
                 })}
@@ -105,7 +126,7 @@ function SaleForm() {
               id="customer"
               className="form-select" value={customer} >
                 <option value="">Choose a customer</option>
-                {customers?.map(cust => {
+                {customers.map(cust => {
                     return (
                         <option key={cust.id} value={cust.id}>
                             {cust.first_name} {cust.last_name}

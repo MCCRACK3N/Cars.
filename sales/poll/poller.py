@@ -19,13 +19,12 @@ def get_vin():
     print(response, "response")
     content = json.loads(response.content)
     print(content, "content")
-    for vin in content["autos"]:
+    for vin in content["automobile"]:
         AutomobileVO.objects.update_or_create(
-            vin=vin["vin"],
-            defaults={
-            "vin": vin["vin"],}
+            vin = vin["vin"],
+            defaults={"import_href": vin["href"],}
         )
-    print(AutomobileVO.objects.all())
+        print(AutomobileVO.objects.get("vin"),"get--_____________")
 
 def poll():
     while True:
@@ -33,6 +32,7 @@ def poll():
         try:
             # Write your polling logic, here
             get_vin()
+            print(get_vin(),"getvin------____-----___---")
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)

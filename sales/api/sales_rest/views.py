@@ -8,21 +8,11 @@ from common.json import ModelEncoder
 class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
     properties = [
-        "vin"
-    ]
-class SaleEncoder(ModelEncoder):
-    model = Sale
-    properties = [
-        "price",
-        "saleperson",
-        "automobile",
-        "customer",
-        "id",
         "vin",
+        "import_href"
+
     ]
-    encoders = {
-        "vin": AutomobileVOEncoder()
-    }
+
 class SalepersonEncoder(ModelEncoder):
     model = Salesperson
     properties = [
@@ -31,6 +21,7 @@ class SalepersonEncoder(ModelEncoder):
         "employee_id",
         "id"
     ]
+
 class CustomerEncoder(ModelEncoder):
     model = Customer
     properties = [
@@ -39,7 +30,22 @@ class CustomerEncoder(ModelEncoder):
         "address",
         "phone_number",
         "id"
+        ]
+
+class SaleEncoder(ModelEncoder):
+    model = Sale
+    properties = [
+    "price",
+    "salesperson",
+    "automobile",
+    "customer",
+    "id",
     ]
+    encoders = {
+    "automobile": AutomobileVOEncoder(),
+    "salesperson": SalepersonEncoder(),
+    "customer": CustomerEncoder(),
+    }
 
 # Create your views here.
 @require_http_methods(["GET", "POST"])
@@ -52,17 +58,28 @@ def sale_list(request):
         )
     elif request.method == "POST":
         content = json.loads(request.body)
-        try:
-            vins = content["vin"]
-            print(vins, "------")
-            vin = AutomobileVO.objects.get(vin=vins)
-            content["vin"] = vin
-            
-        except AutomobileVO.DoesNotExist:
-            return JsonResponse(
-                {"message": "Invalid Vin"},
-                status=400
-            )
+        # try:
+        vin = content["automobile"]
+        print(vin, "contentvin------___________________")
+        print(AutomobileVO.objects.all(), "objects.all_----------------------________________")
+        vin = AutomobileVO.objects.get(vin=vin)
+        print(str(vin), "objects.get_________________________________-------")
+        content["automobile"] = vin
+
+        employee_id = content["salesperson"]
+        salesperson = Salesperson.objects.get(employee_id=employee_id)
+        content["salesperson"] = salesperson
+
+        first_name = content["customer"]
+        customer = Customer.objects.get(first_name=first_name)
+        content["customer"] =customer
+        print(content, "content of post--------------------")
+
+        # except AutomobileVO.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Invalid Vin"},
+        #         status=400
+        #     )
         sales = Sale.objects.create(**content)
         return JsonResponse(
             sales,
