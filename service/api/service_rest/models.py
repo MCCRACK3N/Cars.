@@ -6,8 +6,6 @@ class Technician(models.Model):
     last_name = models.CharField(max_length=100)
     employee_id = models.CharField(max_length=100)
 
-    import_href = models.CharField(max_length=150, unique=True)
-
     class Meta:
         ordering = ("first_name", "last_name", "employee_id")
 

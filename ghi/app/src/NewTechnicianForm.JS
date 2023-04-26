@@ -3,20 +3,18 @@ import React, {useEffect, useState } from 'react';
 function TechnicianForm(props){
 
     const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [employeeId, setEmployeeId] = useState('');
-
-
     const handleFirstName = (event) => {
         const value = event.target.value;
         setFirstName(value);
     }
 
+    const [lastName, setLastName] = useState('');
     const handleLastName = (event) => {
         const value = event.target.value;
         setLastName(value);
     }
 
+    const [employeeId, setEmployeeId] = useState('');
     const handleEmployeeId = (event) => {
         const value = event.target.value;
         setEmployeeId(value);
@@ -51,15 +49,12 @@ function TechnicianForm(props){
         } else {
             console.log("Wrong!", response);
         }
-
+    
     };
 
-useEffect(() => {
-    fetchData();
 
-}, []);
 
-return (
+    return (
     <div className="row">
         <div className="offset-3 col-6">
             <div className="shadow p-4 mt-4">
@@ -74,7 +69,7 @@ return (
                         placeholder="First Name"
                         id="firstName"
                         className="form-control"/>
-                        <label htmlFor="firstName">First Name</label>
+                        <label htmlFor="firstName">First Name...</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input
@@ -85,7 +80,7 @@ return (
                         placeholder="Last Name"
                         id="lastName"
                         className="form-control" />
-                        <label htmlFor="lastName">Last Name</label>
+                        <label htmlFor="lastName">Last Name...</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input
@@ -96,7 +91,7 @@ return (
                         placeholder="Employee Id"
                         id="employeeId"
                         className="form-control" />
-                        <label htmlFor="employeeId">Employee Id</label>
+                        <label htmlFor="employeeId">Employee Id...</label>
                     </div>
                     <button className="btn btn-primary">Create</button>
                 </form>

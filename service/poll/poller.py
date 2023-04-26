@@ -13,7 +13,7 @@ django.setup()
 # from service_rest.models import Something
 from service_rest.models import AutomobileVO
 
-AUTOMOBILE_VIN_API = "http://localhost:8100/api/automobiles/"
+AUTOMOBILE_VIN_API = "http://project-beta-inventory-api-1:8000/api/automobiles"
 
 
 def poll():
