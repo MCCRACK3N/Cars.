@@ -49,8 +49,26 @@ function TechnicianForm(props){
         } else {
             console.log("Wrong!", response);
         }
+
     
     };
+    const [technicians, setTechnicians] = useState([]);
+    const getTechnicians = async () => {
+      const response = await fetch('http://localhost:8080/api/technicians/')
+  
+      if (response.ok) {
+        const data = await response.json();
+        setTechnicians(data.technicians);
+      }
+      else {
+        console.error(response);
+      }
+    }
+  
+    useEffect(() => {
+      getTechnicians ();
+    }, []);
+   
 
 
 

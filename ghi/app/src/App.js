@@ -8,24 +8,7 @@ import NewTechnicianForm from './NewTechnicianForm';
 import { useEffect, useState } from 'react'
 
 function App() {
-  // const [appointments, setAppointments] = useState([]);
-  const [technicians, setTechnicians] = useState([]);
-  const getTechnicians = async () => {
-    const response = await fetch('http://localhost:8080/api/technicians/')
 
-    if (response.ok) {
-      const data = await response.json();
-      setTechnicians(data.technicians);
-    }
-    else {
-      console.error(response);
-    }
-  }
-
-  useEffect(() => {
-    getTechnicians ();
-  }, []);
- 
 
   return (
     <BrowserRouter>
