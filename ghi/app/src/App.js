@@ -34,6 +34,7 @@ function App(props) {
           <Route path="" element={<MainPage />} />
           <Route path="technicians" index element={<TechnicianList />} />
           <Route path="technicians/create" index element={<NewTechnicianForm />} />
+          <Route path="appointments/create" index element={<NewServiceForm />} />
           <Route path="/" element={<MainPage />} />
           <Route path="newmanufacturer">
             <Route path="" element={<ManufacturerForm/>} />

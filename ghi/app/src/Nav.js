@@ -19,10 +19,10 @@ function Nav() {
             {/* </li>
             <li className="nav-itme">
               <NavLink className ="nav-link" to="/appointments">Service Appointments</NavLink>
-            </li> */}
-            {/* <li className="nav-itme">
+            // </li> */}
+            <li className="nav-itme">
               <NavLink className ="nav-link" to="/appointments/create">Create a service appointments</NavLink>
-            </li> */}
+            </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/newmanufacturer">New Manufacturer</NavLink>
             </li>

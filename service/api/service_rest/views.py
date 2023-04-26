@@ -60,7 +60,7 @@ def api_list_technicians(request):
                 encoder=TechnicianListEncoder,
                 safe=True,
             )
-        except KeyError:
+        except:
             return JsonResponse(
                 {"message": "Yo, you're missing field in your body"},
                 status=400,
