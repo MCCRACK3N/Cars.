@@ -1,9 +1,9 @@
 import React from 'react'
 
 function ManufacturerList(props) {
-    if (props.manufacturers === undefined) {
-        return null;
-      }
+    // if (props.manufacturers === undefined) {
+    //     return null;
+    //   }
     return (
         <>
         <header>Manufacturers</header>
