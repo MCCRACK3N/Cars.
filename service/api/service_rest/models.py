@@ -17,7 +17,7 @@ class AutomobileVO(models.Model):
 
 
 class Appointment(models.Model):
-    date_time = models.DateTimeField()
+    date_time = models.DateField()
     vip = models.BooleanField(default=False)
     reason = models.CharField(max_length=100)
     status = models.BooleanField(default=False)
