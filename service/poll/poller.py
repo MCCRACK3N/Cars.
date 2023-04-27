@@ -27,9 +27,11 @@ def poll():
 
             for automobile in automobiles:
                 AutomobileVO.objects.update_or_create(
-                    import_hef=automobile["href"],
+                    vin=automobile["vin"],
+
                     defaults={
-                        "vin": automobile["vin"]
+                        "import_href": automobile["href"],
+                        
                     }
                 )
         except Exception as e:
