@@ -8,21 +8,9 @@ from common.json import ModelEncoder
 class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
     properties = [
-        "vin"
-    ]
-class SaleEncoder(ModelEncoder):
-    model = Sale
-    properties = [
-        "price",
-        "saleperson",
-        "automobile",
-        "customer",
-        "id",
         "vin",
     ]
-    encoders = {
-        "vin": AutomobileVOEncoder()
-    }
+
 class SalepersonEncoder(ModelEncoder):
     model = Salesperson
     properties = [
@@ -31,6 +19,7 @@ class SalepersonEncoder(ModelEncoder):
         "employee_id",
         "id"
     ]
+
 class CustomerEncoder(ModelEncoder):
     model = Customer
     properties = [
@@ -39,30 +28,61 @@ class CustomerEncoder(ModelEncoder):
         "address",
         "phone_number",
         "id"
+        ]
+
+class SaleEncoder(ModelEncoder):
+    model = Sale
+    properties = [
+    "price",
+    # "salesperson",
+    # "automobile",
+    # "customer",
+    "id",
     ]
+    encoders = {
+    "automobile": AutomobileVOEncoder(),
+    "salesperson": SalepersonEncoder(),
+    "customer": CustomerEncoder(),
+    }
+    def get_extra_data(self, o):
+        return {"automobile": o.automobile.vin,
+                "salesperson_first_name": o.salesperson.first_name,
+                "salesperson_last_name": o.salesperson.last_name,
+                "salesperson": o.salesperson.employee_id,
+                "customer": o.customer.first_name,
+                "customer_last_name": o.customer.last_name}
 
 # Create your views here.
 @require_http_methods(["GET", "POST"])
 def sale_list(request):
     if request.method == "GET":
         sales = Sale.objects.all()
+        print(sales, "here----------")
         return JsonResponse(
             {"sales": sales},
             encoder=SaleEncoder,
         )
-    elif request.method == "POST":
+    else:
         content = json.loads(request.body)
-        try:
-            vins = content["vin"]
-            print(vins, "------")
-            vin = AutomobileVO.objects.get(vin=vins)
-            content["vin"] = vin
-            
-        except AutomobileVO.DoesNotExist:
-            return JsonResponse(
-                {"message": "Invalid Vin"},
-                status=400
-            )
+        # try:
+        vin = content["automobile"]
+        auto = AutomobileVO.objects.get(vin=vin)
+        content["automobile"] = auto
+
+        employee_id = content["salesperson"]
+        salesperson = Salesperson.objects.get(employee_id=employee_id)
+        content["salesperson"] = salesperson
+
+        first_name = content["customer"]
+        customer = Customer.objects.get(first_name=first_name)
+        content["customer"] =customer
+
+
+        # except AutomobileVO.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Invalid Vin"},
+        #         status=400
+        #     )
         sales = Sale.objects.create(**content)
         return JsonResponse(
             sales,
