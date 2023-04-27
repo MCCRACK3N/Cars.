@@ -47,31 +47,32 @@ For the POST and PUT method you will see the same type of information and in add
 
 For a Salesperson we have GET(gets the database), POST(adds to the database), DELETE(deletes from the database):
 GET
-(/image/image.png)
+![This is a alt text.](/image/image.png)
 
 POST
-(/image/image.png)
+![](/image/image.png)
 
 DELETE
-(/image/image.png)
+![](/image/image.png)
 
 For Automobile we have GET, POST, DELETE and PUT(updates existing data)
 GET
-(/image/image.png)
+![](/image/image.png)
 
 POST
-(/image/image.png)
+![](/image/image.png)
 
 PUT
-(/image/image.png)
+![](/image/image.png)
 
 DELETE
-(/image/image.png)
+![](/image/image.png)
 
 
 For Customer we have GET, POST, and DELETE
 GET
-(/image/image.png)
+![](/image/image.png)
 POST
-(/image/image.png)
+![](/image/image.png)
 DELETE
+![](https://1drv.ms/i/s!Aulkzs9X--VFuBsKzKTu06Ub0UJe)
