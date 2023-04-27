@@ -13,10 +13,10 @@ Explain your models and integration with the inventory
 microservice, here.
 
 ## Sales microservice
+For the Sales microservices we created multiple models, AutomobileVO, Customer, Salesperson, and Sale. For the Sale to occur we need information from each of the other models. We also added the functionaility to be able to add a Customer, Salesperson, and a Automobile on top of the creating a Sale. You will be able to see a diagram that can better show how the models work with one another and also how we do the HTTP method.
 
 ## How to Run this Project
 
-# Step by step instructions to run this project.
 Go to https://gitlab.com/Kevinjeet/project-beta
 There you will then fork the project
 After the fork you will then clone it and also copy the HTTPS
@@ -35,20 +35,21 @@ Once the docker containers are running you can go to http://localhost:3000/ and 
 
 ## Project Diagram
 
-- Insert a diagram of the different services in your application, how they interact with each other, ports and URLs, Models and VO
-![diagram](/image/diagram.png)
+
+![diagram](diagram.png)
 
 ## API Documentation
 
-- For each of the services, add the documentation describing how to interact with each endpoint across the various HTTP methods implemented. Include the information that is needed for a request and where it needs to be included in the request(ie. header, path parameter, request body). Include the information that is returned from the server in the response. Insomnia can be very helpful in helping you put together this information
 We have multiple HTTP method implemented, we will be using the Insomnia App to show these request
 For the GET and DELETE method you will see the url needed to make the request and also at the bottom you will see the data.
 For the POST and PUT method you will see the same type of information and in addition the JSON body needed to make the request with.
 With the following you will see the URL used to make the request to and the response receive and if needed the JSON body
 For a Salesperson we have GET(gets the database), POST(adds to the database), DELETE(deletes from the database):
+
 GET
 the url: 	http://localhost:8090/api/salespeople/
 the response:
+```
 {
 	"salepeople": [
 		{
@@ -71,35 +72,43 @@ the response:
 		}
 	]
 }
+```
 POST
 the url: http://localhost:8090/api/salespeople/
 the JSON body:
+```
 {
 	"first_name": "Jacob",
 	"last_name": "Lord",
 	"employee_id": "JLord"
 }
+```
 the response:
+```
 {
 	"first_name": "Jacob",
 	"last_name": "Lord",
 	"employee_id": "JLord",
 	"id": 3
 }
+```
 DELETE
 the url: http://localhost:8090/api/salespeople/3
 the response:
+```
 {
 	"first_name": "Jacob",
 	"last_name": "Lord",
 	"employee_id": "JLord",
 	"id": null
 }
+```
 
 For Automobile we have GET, POST, DELETE and PUT(updates existing data)
 GET
 the url: http://localhost:8100/api/automobiles/
 the response:
+```
 {
 	"autos": [
 		{
@@ -180,26 +189,32 @@ the response:
 		}
 	]
 }
+```
 
 POST
 the url: http://localhost:8100/api/automobiles/
 the JSON body:
+```
 {
 	"color": "white",
 	"year": 2022,
 	"vin": "3GCUKREC8EG321032",
 	"model_id": 2
 }
+```
 
 PUT
 the urls: http://localhost:8100/api/automobiles/3GCUKREC8EG321032/
 the JSON body:
+```
 {
 	"color": "green",
 	"year": "2021",
 	"sold": false
 }
+```
 the response:
+```
 {
 	"href": "/api/automobiles/3GCUKREC8EG321032/",
 	"id": 4,
@@ -219,10 +234,12 @@ the response:
 	},
 	"sold": false
 }
+```
 
 DELETE
 the url: http://localhost:8100/api/automobiles/3GCUKREC8EG321032/
 the response:
+```
 {
 	"href": "/api/automobiles/3GCUKREC8EG321032/",
 	"id": null,
@@ -242,12 +259,14 @@ the response:
 	},
 	"sold": false
 }
+```
 
 
 For Customer we have GET, POST, and DELETE
 GET
 the url: http://localhost:8090/api/customers/
 the response
+```
 {
 	"customers": [
 		{
@@ -273,10 +292,12 @@ the response
 		}
 	]
 }
+```
 
 POST
 the url: http://localhost:8090/api/customers/
 the JSON body:
+```
 {
 	"first_name": "Jake",
 	"last_name": "Statefarm",
@@ -291,10 +312,12 @@ the respone:
 	"phone_number": "916-555-5555",
 	"id": 3
 }
+```
 
 DELETE
 the url:http://localhost:8090/api/customers/2
 the response:
+```
 {
 	"first_name": "Jerry",
 	"last_name": "Tom",
@@ -302,20 +325,24 @@ the response:
 	"phone_number": "916-555-5555",
 	"id": null
 }
+```
 
 For Sale we have a DELETE, GET, POST
 POST:
 the url: http://localhost:8090/api/sales/
 
 the JSON body:
+```
 {
 	"salesperson": "DFrank",
 	"customer": "Jerry",
 	"price": 1500,
 	"automobile": "JTDKN3DU0E1706346"
 }
+```
 
 the response:
+```
 {
 	"price": 1500,
 	"id": 6,
@@ -326,11 +353,13 @@ the response:
 	"customer": "Jerry",
 	"customer_last_name": "Tom"
 }
+```
 
 GET:
 the url: http://localhost:8090/api/sales/
 
 the response:
+```
 {
 	"sales": [
 		{
@@ -365,11 +394,13 @@ the response:
 		}
 	]
 }
+```
 
 DELETE
 the url: http://localhost:8090/api/sales/10
 
 the response:
+```
 {
 	"price": 200,
 	"id": null,
@@ -380,3 +411,4 @@ the response:
 	"customer": "Jerry",
 	"customer_last_name": "Tom"
 }
+```
