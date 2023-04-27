@@ -9,8 +9,6 @@ class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
     properties = [
         "vin",
-        "import_href"
-
     ]
 
 class SalepersonEncoder(ModelEncoder):
@@ -36,9 +34,9 @@ class SaleEncoder(ModelEncoder):
     model = Sale
     properties = [
     "price",
-    "salesperson",
-    "automobile",
-    "customer",
+    # "salesperson",
+    # "automobile",
+    # "customer",
     "id",
     ]
     encoders = {
@@ -46,25 +44,30 @@ class SaleEncoder(ModelEncoder):
     "salesperson": SalepersonEncoder(),
     "customer": CustomerEncoder(),
     }
+    def get_extra_data(self, o):
+        return {"automobile": o.automobile.vin,
+                "salesperson_first_name": o.salesperson.first_name,
+                "salesperson_last_name": o.salesperson.last_name,
+                "salesperson": o.salesperson.employee_id,
+                "customer": o.customer.first_name,
+                "customer_last_name": o.customer.last_name}
 
 # Create your views here.
 @require_http_methods(["GET", "POST"])
 def sale_list(request):
     if request.method == "GET":
         sales = Sale.objects.all()
+        print(sales, "here----------")
         return JsonResponse(
             {"sales": sales},
             encoder=SaleEncoder,
         )
-    elif request.method == "POST":
+    else:
         content = json.loads(request.body)
         # try:
         vin = content["automobile"]
-        print(vin, "contentvin------___________________")
-        print(AutomobileVO.objects.all(), "objects.all_----------------------________________")
-        vin = AutomobileVO.objects.get(vin=vin)
-        print(str(vin), "objects.get_________________________________-------")
-        content["automobile"] = vin
+        auto = AutomobileVO.objects.get(vin=vin)
+        content["automobile"] = auto
 
         employee_id = content["salesperson"]
         salesperson = Salesperson.objects.get(employee_id=employee_id)
@@ -73,7 +76,7 @@ def sale_list(request):
         first_name = content["customer"]
         customer = Customer.objects.get(first_name=first_name)
         content["customer"] =customer
-        print(content, "content of post--------------------")
+
 
         # except AutomobileVO.DoesNotExist:
         #     return JsonResponse(

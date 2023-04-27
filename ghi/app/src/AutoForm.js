@@ -23,12 +23,12 @@ function AutoForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data={}
+
         data.color = color;
         data.year = year;
         data.vin = vin;
-        data.model.name = model;
+        data.model_id = model;
 
-        console.log(data)
         const autoUrl = "http://localhost:8100/api/automobiles/"
         const fetchConfig = {
             method: "post",
@@ -40,7 +40,6 @@ function AutoForm() {
         const response = await fetch(autoUrl, fetchConfig)
         if (response.ok) {
             const newAuto = await response.json();
-            console.log(newAuto);
             setColor('');
             setYear('');
             setVin('');

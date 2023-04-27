@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react'
 
+
+
 function SaleForm() {
     const [vin, setVin] = useState('')
     const [salesperson, setSalesperson] = useState('')
     const [customer, setCustomer] = useState('')
     const [price, setPrice] = useState('')
-
     const [vins, setVins] = useState([])
     const [salespersons, setSalespersons] = useState([])
     const [customers, setCustomers] = useState([])
-
     const vinChange = (event) => {
         setVin(event.target.value)
     }
@@ -22,18 +22,15 @@ function SaleForm() {
     const priceChange = (event) => {
         setPrice(event.target.value)
     }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data= {}
+        data.price = price;
+        data.automobile = vin;
         data.customer = customer;
         data.salesperson = salesperson;
-        data.vin = vin
-        data.price = price;
-
-
-        console.log(data)
         const saleUrl = "http://localhost:8090/api/sales/"
+        const autoUrl = "http://localhost:8100/api/automobiles/"
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
@@ -41,35 +38,44 @@ function SaleForm() {
                 "Content-Type": "application/json",
             },
         };
+
         const response = await fetch(saleUrl, fetchConfig);
+
         if (response.ok) {
             const newSale = await response.json();
-            console.log(newSale);
+        }
+        const autoFetchConfig = {
+            method: "put",
+            body: JSON.stringify({ sold: true}),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        const autoResponse = await fetch(`${autoUrl}${vin}/`, autoFetchConfig);
+        if (autoResponse.ok) {
             setVin('');
             setSalesperson('');
             setCustomer('');
             setPrice('');
         }
-        window.location.reload();
-    }
+        }
+
     const customerfetchData = async () => {
         const customerurl = 'http://localhost:8090/api/customers/';
         const response = await fetch(customerurl);
         if (response.ok) {
             const data = await response.json();
-            console.log(data, "data")
-
             setCustomers(data.customers)
-
         }
     }
     const vinfetchdata = async () => {
         const vinurl = "http://localhost:8100/api/automobiles/"
+
         const response = await fetch(vinurl)
         if (response.ok) {
             const data = await response.json();
-            console.log(data, "auto data")
-            setVins(data.autos)
+            const notSoldAuto = data.autos.filter(auto => !auto.sold);
+            setVins(notSoldAuto)
         }
     }
     const salefetchdata = async () => {
@@ -77,7 +83,6 @@ function SaleForm() {
         const response = await fetch(saleurl)
         if (response.ok) {
             const data = await response.json();
-            console.log(data, "salesperson data")
             setSalespersons(data.salepeople)
         }
     }
@@ -100,11 +105,9 @@ function SaleForm() {
                 <option value="">Choose an automobile VIN</option>
                 {vins?.map(vin => {
                     return (
-                        <option key={vin.href} value={vin.href}>
+                        <option key={vin.vin} value={vin.vin}>
                             {vin.vin}
-                        </option>
-                    )
-                })}
+                        </option>)})}
               </select>
             </div>
             <div className="mb-3">
@@ -114,11 +117,9 @@ function SaleForm() {
                 <option value="">Choose a salesperson</option>
                 {salespersons?.map(salesperson => {
                     return (
-                        <option key={salesperson.id} value={salesperson.id}>
+                        <option key={salesperson.id} value={salesperson.employee_id}>
                             {salesperson.first_name} {salesperson.last_name}
-                        </option>
-                    )
-                })}
+                        </option>)})}
               </select>
             </div>
             <div className="mb-3">
@@ -128,11 +129,9 @@ function SaleForm() {
                 <option value="">Choose a customer</option>
                 {customers.map(cust => {
                     return (
-                        <option key={cust.id} value={cust.id}>
+                        <option key={cust.id} value={cust.first_name}>
                             {cust.first_name} {cust.last_name}
-                        </option>
-                    )
-                })}
+                        </option>)})}
               </select>
             </div>
             <div className="form-floating mb-3">
@@ -147,9 +146,6 @@ function SaleForm() {
         </div>
       </div>
     </div>
-
-
-
     );
 }
 export default SaleForm

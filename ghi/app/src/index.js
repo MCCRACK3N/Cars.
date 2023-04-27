@@ -19,7 +19,7 @@ async function loadManufacturers() {
         <App manufacturers={data.manufacturers} />
       </React.StrictMode>
     );
-    console.log(data, "manufacturers-----");
+
   } else {
     console.error(response);
   }
@@ -35,7 +35,7 @@ async function loadVehicleModels() {
         <App models={data.models} />
       </React.StrictMode>
     );
-    console.log(data, "models----")
+
   } else {
     console.error(response);
   }
@@ -51,7 +51,7 @@ async function loadAutos() {
         <App autos={data.autos} />
       </React.StrictMode>
     );
-    console.log(data, "autos----")
+
   } else {
     console.error(response);
   }

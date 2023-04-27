@@ -18,6 +18,7 @@ import CustomerForm from './CustomerForm';
 import ManufacturerForm from './ManufacturerForm';
 import CarModelForm from './CarModelForm';
 import AutoForm from './AutoForm';
+import SalespersonHistory from './SalespersonHistory';
 
 function App(props) {
 //   if (props.models === undefined) {
@@ -70,6 +71,9 @@ function App(props) {
           </Route>
           <Route path="salespeoplelist">
             <Route path="" element={<SalespersonList/>} />
+          </Route>
+          <Route path="salespersonhistoy">
+            <Route path="" element={<SalespersonHistory/>} />
           </Route>
 
         </Routes>
