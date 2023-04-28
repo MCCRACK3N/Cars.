@@ -27,12 +27,6 @@ Open your terminal and run
 
 git clone (insert the copy)
 
-Do the following commands:
-
-docker volume create beta-data
-docker-compose build
-docker-compose up
-
 Once the docker containers are running you can go to http://localhost:3000/ and see the website
 
 ####Lets Get Started!
@@ -45,7 +39,7 @@ https://desktop.docker.com/mac/main/amd64/Docker.dmg?utm_source=docker&utm_mediu
 ####Lets Clone!
 1. First, open your terminal and change your directory to the one you would clone this project into.
 
-2. Second, while in your terminal, type: `(insert link)`
+2. Second, while in your terminal, type: `https://gitlab.com/Kevinjeet/project-beta.git`
 
 3. Lastly, we need to switch inoto the projects directory: `cd project-beta`
 
@@ -61,13 +55,13 @@ After comploted the above, now lets enter each command in order.
 
 ####Success!
 After you have completed these steps succesfully, you will see your docker with these running containers. 
-![Docker](../../docker.png)
+![docker.png](docker.png)
 ## Project Diagram
 
+![Alt text](Service_Diagram.png)
 
-![diagram](diagram.PNG)
 
-![Diagram](../../Screenshot%202023-04-27%20at%2011.35.12%20PM.png)
+![Sales](diagram.PNG)
 
 
 
@@ -166,11 +160,190 @@ We have multiple HTTP method implemented, we will be using the Insomnia App to s
 For the GET and DELETE method you will see the url needed to make the request and also at the bottom you will see the data.
 For the POST and PUT method you will see the same type of information and in addition the JSON body needed to make the request with.
 With the following you will see the URL used to make the request to and the response receive and if needed the JSON body
+
+#Service API 
+For Service microservice, we have three models: Technician, AutomobileVO, and Appointment.This uses GET(gets information from the database), POST(adds information to the database), PUT(Updates information), and DELETE(deletes from the database)
+
+With our first model, Technician, which uses the GET, POST, and DELETE.
+
+- GET
+URL: http://localhost:8080/api/technicians/
+Response:
+
+```{
+	"technicians": [
+		{
+			"first_name": "James",
+			"last_name": "Kelly",
+			"employee_id": "Jelly",
+			"id": 9
+		},
+		{
+			"first_name": "Shane",
+			"last_name": "Finy",
+			"employee_id": "Siny",
+			"id": 5
+		},
+		{
+			"first_name": "Alex",
+			"last_name": "Jay",
+			"employee_id": "Aay",
+			"id": 3
+		}
+    	]
+}
+```
+
+- POST
+URL:http://localhost:8080/api/technicians/
+JSON BODY:
+
+```
+{
+    "first_name": "Shane",
+    "last_name": "McCracken",
+    "employee_id": "SmcCracken"
+}
+```
+RESPONSE:
+```
+{
+	"technician": {
+		"first_name": "Shane",
+		"last_name": "McCracken",
+		"employee_id": "Cracken",
+		"id": 1
+	}
+}
+```
+
+- DELETE 
+URL:http://localhost:8080/api/technicians/3
+Deletes specified technician by id at end of URL
+
+
+With our second model, Appointment, which uses the GET, POST, DELETE, PUT. 
+
+- POST 
+URL:http://localhost:8080/api/appointments/
+```
+JSON BODY: { 
+    "vin": "JA231ASDSF3",
+    "customer": "James Kelly",
+		"date_time": "2021-02-20",
+		"time": "4:23:00",
+		"technician": 1,
+		"reason": "Knocking. sound",
+		"vip": "False",
+		"status":"False"
+}
+```
+
+RESPONSE:
+```
+{
+	"appointment": {
+		"date_time": "2021-02-20",
+		"reason": "Leak",
+		"status": "False",
+		"time": "4:23:00",
+		"customer": "Luke Lomuto",
+		"vin": "ASA121JSD2",
+		"vip": "False",
+		"id": 1,
+		"technician": {
+			"first_name": "Shane",
+			"last_name": "McCracken",
+			"employee_id": "Cracken",
+			"id": 1
+		},
+		"technician_id": 1
+	}
+}
+```
+
+- GET 
+URL:http://localhost:8080/api/appointments/
+RESPONSE:
+```
+{
+	"appointments": [
+		{
+			"date_time": "1211-12-12",
+			"reason": "Won't start",
+			"status": "finished",
+			"time": "00:21:00",
+			"customer": "Peter Apali",
+			"vin": "ASDADS12ASD",
+			"vip": false,
+			"id": 2,
+			"technician": {
+				"first_name": "Shane",
+				"last_name": "McCracken",
+				"employee_id": "Cracken",
+				"id": 1
+			},
+			"technician_id": 1
+		}
+	]
+}
+```
+
+- PUT
+URL:http://localhost:8080/api/appointments/1/finish/
+URL:http://localhost:8080/api/appointments/:id/cancel
+RESPONSE:
+```
+{
+	"date_time": "2021-02-20",
+	"reason": "Brake repair",
+	"status": "finish",
+	"time": "04:23:00",
+	"customer": "Pual Nazerath",
+	"vin": "JASD23KK21",
+	"vip": false,
+	"id": 1,
+	"technician": {
+		"first_name": "Shane",
+		"last_name": "McCracken",
+		"employee_id": "Cracken",
+		"id": 1
+	},
+	"technician_id": 1
+}
+```
+```
+{
+	"date_time": "2021-02-20",
+	"reason": "Brake repair",
+	"status": "cancel",
+	"time": "04:23:00",
+	"customer": "Pual Nazerath",
+	"vin": "JASD23KK21",
+	"vip": false,
+	"id": 1,
+	"technician": {
+		"first_name": "Shane",
+		"last_name": "McCracken",
+		"employee_id": "Cracken",
+		"id": 1
+	},
+	"technician_id": 1
+}
+```
+
+- DELETE
+URL: http://localhost:8080/api/appointments/2
+
+
+#Sales API
+
 For a Salesperson we have GET(gets the database), POST(adds to the database), DELETE(deletes from the database):
 
 GET
 the url: 	http://localhost:8090/api/salespeople/
 the response:
+
 ```
 {
 	"salepeople": [
