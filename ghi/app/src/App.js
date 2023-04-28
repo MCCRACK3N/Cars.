@@ -22,6 +22,7 @@ import AutoForm from './AutoForm';
 import SalespersonHistory from './SalespersonHistory';
 
 function App(props) {
+
   return (
     <BrowserRouter>
       <Nav />
@@ -43,13 +44,13 @@ function App(props) {
             <Route path="" element={<CarModelForm/>} />
           </Route>
           <Route path="carmodelslist">
-            <Route path="" element={<VehicleModelList models={props.models} />} />
+            <Route path="" element={<VehicleModelList />} />
           </Route>
           <Route path="newauto">
             <Route path="" element={<AutoForm/>} />
           </Route>
           <Route path="autolist">
-            <Route path="" element={<AutoList autos={props.autos} />} />
+            <Route path="" element={<AutoList />} />
           </Route>
           <Route path="newsale">
             <Route path="" element={<SaleForm/>} />
@@ -81,4 +82,3 @@ function App(props) {
 }
 
 export default App;
-

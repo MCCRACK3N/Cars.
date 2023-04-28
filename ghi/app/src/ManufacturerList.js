@@ -1,11 +1,10 @@
 import React from 'react'
 
 function ManufacturerList(props) {
-    // if (props.manufacturers === undefined) {
-    //     return null;
-    //   }
+
     return (
         <>
+        <div id="list">
         <h1 className="text-center mt-4">Manufacturers</h1>
         <table className="table table-striped">
             <thead>
@@ -22,7 +21,7 @@ function ManufacturerList(props) {
                     </tr>)
                 })}
             </tbody>
-        </table>
+        </table></div>
         </>
     )
 }

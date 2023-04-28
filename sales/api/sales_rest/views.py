@@ -34,9 +34,6 @@ class SaleEncoder(ModelEncoder):
     model = Sale
     properties = [
     "price",
-    # "salesperson",
-    # "automobile",
-    # "customer",
     "id",
     ]
     encoders = {
@@ -64,25 +61,25 @@ def sale_list(request):
         )
     else:
         content = json.loads(request.body)
-        # try:
-        vin = content["automobile"]
-        auto = AutomobileVO.objects.get(vin=vin)
-        content["automobile"] = auto
+        try:
+            vin = content["automobile"]
+            auto = AutomobileVO.objects.get(vin=vin)
+            content["automobile"] = auto
 
-        employee_id = content["salesperson"]
-        salesperson = Salesperson.objects.get(employee_id=employee_id)
-        content["salesperson"] = salesperson
+            employee_id = content["salesperson"]
+            salesperson = Salesperson.objects.get(employee_id=employee_id)
+            content["salesperson"] = salesperson
 
-        first_name = content["customer"]
-        customer = Customer.objects.get(first_name=first_name)
-        content["customer"] =customer
+            first_name = content["customer"]
+            customer = Customer.objects.get(first_name=first_name)
+            content["customer"] =customer
 
 
-        # except AutomobileVO.DoesNotExist:
-        #     return JsonResponse(
-        #         {"message": "Invalid Vin"},
-        #         status=400
-        #     )
+        except AutomobileVO.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid Vin"},
+                status=400
+            )
         sales = Sale.objects.create(**content)
         return JsonResponse(
             sales,

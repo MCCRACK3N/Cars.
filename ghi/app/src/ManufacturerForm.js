@@ -4,6 +4,7 @@ function ManufacturerForm() {
     const [manufacturer, setManufacturer] = useState('')
 
 
+
     const manufacturerChange = (event) => {
         setManufacturer(event.target.value)
     }
@@ -13,7 +14,7 @@ function ManufacturerForm() {
         const data={}
         data.name = manufacturer;
 
-        console.log(data, "data")
+
         const manufacturerUrl = "http://localhost:8100/api/manufacturers/"
         const fetchConfig = {
             method: "post",
@@ -25,9 +26,9 @@ function ManufacturerForm() {
         const response = await fetch(manufacturerUrl, fetchConfig)
         if (response.ok) {
             const newManufacturer = await response.json();
-            console.log(newManufacturer, "----");
-            setManufacturer('');;
+            setManufacturer('');
         }
+
     }
 
 
