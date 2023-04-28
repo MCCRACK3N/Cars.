@@ -6,7 +6,7 @@ function ManufacturerList(props) {
     //   }
     return (
         <>
-        <header>Manufacturers</header>
+        <h1 className="text-center mt-4">Manufacturers</h1>
         <table className="table table-striped">
             <thead>
                 <tr>

@@ -19,7 +19,7 @@ function SaleList(props) {
 
     return (
         <>
-        <header>Sales</header>
+        <h1 className="text-center mt-4">Sales</h1>
         <table className="table table-striped">
             <thead>
                 <tr>

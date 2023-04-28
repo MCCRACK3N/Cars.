@@ -18,7 +18,7 @@ function VehicleModelList(props) {
 
     return (
         <>
-        <header>Automobiles</header>
+        <h1 className="text-center mt-4">Automobiles</h1>
         <table className="table table-striped">
             <thead>
                 <tr>

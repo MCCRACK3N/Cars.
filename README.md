@@ -36,7 +36,7 @@ Once the docker containers are running you can go to http://localhost:3000/ and 
 ## Project Diagram
 
 
-![diagram](diagram.png)
+![diagram](diagram.PNG)
 
 ## API Documentation
 
