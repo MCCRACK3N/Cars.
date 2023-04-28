@@ -21,12 +21,13 @@ import AutoForm from './AutoForm';
 import SalespersonHistory from './SalespersonHistory';
 
 function App(props) {
-//   if (props.models === undefined) {
-//     return null;
-// }
-  // if (props.autos === undefined) {
-  //   return null;
-  // }
+const [refresh, setRefresh] = useState(false);
+const refreshpage = () => {
+  setRefresh(true);6
+}
+const refreshpagereset = () => {
+  setRefresh(false);
+}
   return (
     <BrowserRouter>
       <Nav />
