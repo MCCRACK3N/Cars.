@@ -8,7 +8,7 @@ function AutoList(props) {
         if (response.ok) {
           const data = await response.json();
           setAutos(data.autos)
-          console.log(data.autos.sold, "sold")
+
     }
 }
 useEffect(() => {
@@ -18,7 +18,7 @@ useEffect(() => {
 
     return (
         <>
-        <header>Automobiles</header>
+        <h1 className="text-center mt-4">Automobiles</h1>
         <table className="table table-striped">
             <thead>
                 <tr>

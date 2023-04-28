@@ -18,7 +18,7 @@ function CustomerList(props) {
 
     return (
         <>
-        <header>Customers</header>
+        <h1 className="text-center mt-4">Customers</h1>
         <table className="table table-striped">
             <thead>
                 <tr>

@@ -18,7 +18,7 @@ function SalespersonList(props) {
 
     return (
         <>
-        <header>Salespeople</header>
+        <h1 className="text-center mt-4">Salespeople</h1>
         <table className="table table-striped">
             <thead>
                 <tr>
