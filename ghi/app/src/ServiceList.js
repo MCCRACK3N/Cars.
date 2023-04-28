@@ -9,33 +9,27 @@ function ServiceList() {
         if (response.ok) {
             const data = await response.json();
             setAppointments(data.appointments);
-            console.log(data.appointments, "Loookkkkk here!!")
+
         } else {
             console.error(response);
         }
     };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
     const handleStatusUpdt = async (id, status) => {
-        const method = status === 'Canceled' || status === 'Finished' ? 'DELETE' : 'PUT';
+      const response = await fetch(`http://localhost:8080/api/appointments/${id}/finish/`, {
+        method: 'PUT', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status }),
+    });
+    if (response.ok) {setAppointments(appointments.filter(appointment => appointment.id !== id));
+    
+    } else {
+       console.error("It didn't work")
+    }
+  };
 
-        const response = await fetch(`http://localhost:8080/api/appointments/${id}`, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: method === 'PUT' ? JSON.stringify({ status }) : null,
-        });
-
-        if (response.ok) {
-            setAppointments(appointments.filter(appointment => appointment.id !== id))
-        } else {
-            console.error("Delete", "The delete didn't work");
-        }
-    };
 
     useEffect(() => {
         fetchData();
@@ -54,30 +48,34 @@ function ServiceList() {
               <th>Time</th>
               <th>Technician</th>
               <th>Reason</th>
-              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {appointments?.map((appointment) => {
-              return (
-                <tr key={appointment.id}>
-                  <td>{appointment.vin}</td>
-                  <td>{appointment.vip}</td>
-                  <td>{appointment.customer}</td>
-                  <td>{appointment.date_time}</td>
-                  <td>{appointment.time}</td>
-                  <td>{appointment.technician?.employee_id}</td>
-                  <td>{appointment.reason}</td>
-                  <td>
-                    {appointment.status !== 'Canceled' && appointment.status !== 'Finished' ? (
+          {appointments?.map((appointment) => {
+              if (appointment.status === 'created') {
+                return (
+                  <tr key={appointment.id}>
+                    <td>{appointment.vin}</td>
+                    <td>{appointment.vip ? 'Yes' : 'No'}</td>
+                    <td>{appointment.customer}</td>
+                    <td>{appointment.date_time}</td>
+                    <td>{appointment.time}</td>
+                    <td>{appointment.technician?.employee_id}</td>
+                    <td>{appointment.reason}</td>
+                    <td>
+                      {appointment.status !== 'canceled' && appointment.status !== 'finished' ? (
                         <>
-                            <button onClick={() => handleStatusUpdt(appointment.id, 'Finished')}>Finished</button>
-                            <button onClick={() => handleStatusUpdt(appointment.id, 'Canceled')}>Canceled</button>
+                          <button onClick={() => handleStatusUpdt(appointment.id, 'canceled')} style ={{ backgroundColor:  '#db3544', borderRadius: '4px', color: 'white', border: 'none',fontSize: '1rem',height: '35px',width: '70px' }}>Cancel</button>
+                          <button onClick={() => handleStatusUpdt(appointment.id, 'finished')} style ={{ backgroundColor: '#188753', borderRadius: '4px', color: 'white', border: 'none',fontSize: '1rem',height: '35px',width: '70px' }}>Finish</button>
+                          
                         </>
-                    ) : null}
-                  </td>
-                </tr>
-              );
+                      ) : null}
+                    </td>
+                  </tr>
+                );
+              } else {
+                return null;
+              }
             })}
           </tbody>
         </table>
@@ -86,20 +84,3 @@ function ServiceList() {
   }
 
   export default ServiceList
-
-
-
-      //     const handleDelete = async (id) => {
-    //     const response = await fetch(`http://localhost:8080/api/appointments/${id}`, {
-    //         method: `DELETE`,
-    //     });
-
-    //     if (response.ok) {
-    //         setAppointments(appointments.filter(appointment => appointment.id !== id))
-    //     } else {
-    //         console.error("DELETED!!!!!", "Check APPT");
-    //     }
-    // };
-
-
-

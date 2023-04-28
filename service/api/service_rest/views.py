@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 from .models import Technician, AutomobileVO, Appointment
@@ -119,30 +118,16 @@ def api_delete_appointments(request, pk):
 
 
 @require_http_methods(["PUT"])
-def api_status_appointments(request, pk):
-    if request.method == "PUT":
-        try:
-            appointment = Appointment.objects.get(id=pk)
-            status = request.POST.get("status")
-            if status == "Finished" or status == "Canceled":
-                appointment.delete()
-                return JsonResponse(
-                    {"DELETED!" f"{status} YOUR APPT IS DELETE!! "},
-                    status=204,
-                )
-            else:
-                appointment.status = status
-                appointment.save()
-                return JsonResponse(
-                    {"DELETE": "You DELETED an APPOINTMENT!!! ALERT!!"},
-                    status=204
-                )
-        except Appointment.DoesNotExist:
-            response = JsonResponse({"No Appointment": "There's nothing to delete"})
-            response.status_code = 404
-            return response
-        
-
+def api_status_appointments(request, appointment_id):
+    content = json.loads(request.body)
+    appointment = Appointment.objects.get(id=appointment_id)
+    Appointment.objects.filter(id=appointment_id).update(**content)
+    return JsonResponse(
+            appointment,
+            encoder=AppointmentDetailEncoder,
+            safe=False
+            )
+    
 
 @require_http_methods(["GET", "DELETE"])
 def api_show_technicians(request, pk):

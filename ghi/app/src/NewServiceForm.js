@@ -3,10 +3,15 @@ import React, {useEffect, useState } from 'react';
 function ServiceForm(props){
     
     const [vin, setVin] = useState('');
-    const [auto, setAutos] = useState([]);
     const handleVin = (event) => {
         const value = event.target.value;
         setVin(value);
+    }
+
+    const [vip, setVip] = useState('');
+    const handleVip= (event) => {
+        const value = event.target.value;
+        setVip(value);
     }
 
     const [customer, setCustomer] = useState('');
@@ -43,27 +48,24 @@ function ServiceForm(props){
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        const vinUrl = "http://localhost:8100/api/automobiles/"
-        const pull = await  fetch(vinUrl)
-        let vinStatus = false;
-        if (pull.ok) {
-            const info = await pull.json();
-            const vinCheck = info.auto.filter(auto => auto.vin === vin)
-            if (auto.vin === vin) {
-                vinStatus = true;
-            }
-        }
-
         const data = {};
+        data.vip = vip;
         data.vin = vin;
-        data.vip = vinStatus;
         data.customer = customer;
         data.date_time = date_time;
         data.time = time;
         data.technician = selectedTechnician;
         data.reason = reason;
+
+        const vinUrl = "http://localhost:8100/api/automobiles/"
+        const pull = await fetch(vinUrl)
+        const info = await pull.json();
+        const autoData = info.autos
+
+        let vinCheck = autoData.some(auto => vin === auto.vin);
+        data.vip = vinCheck
         
-        console.log(data)
+    
         const newAppointment = "http://localhost:8080/api/appointments/"
         const fetchConfig = {
             method: "post",
@@ -77,7 +79,7 @@ function ServiceForm(props){
         const response = await fetch(newAppointment, fetchConfig);
         if (response.ok) {
             const newAppointment = await response.json();
-            console.log(newAppointment);
+
 
             setVin('');
             setCustomer('');
@@ -88,7 +90,7 @@ function ServiceForm(props){
 
             
         } else {
-            console.log("Wrong!", response);
+
         }
 
     };
@@ -99,7 +101,6 @@ function ServiceForm(props){
         if (response.ok) {
             const data = await response.json();
             setTechnician(data.technicians)
-            console.log(data.technicians, "This!!!!!!!!!");
         }
     }
 
