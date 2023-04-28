@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 function TechnicianList() {
-    // const handleDelete = async (technicianId) => {
-    //     const response = await fetch(`http://localhost:8080/api/technicians/${technicianId}`, {
-    //     method:'DELETE',
-    // });
-    // if (response.ok) {
-    //     const updateTechnicians = technicians.filter((technician) => technician.id != parseInt(technicianId));
-    //     setTechnicians(updateTechnicians);
 
-    //     }
-    // };
   const [technicians, setTechnicians] = useState([]);
   const getTechnicians = async () => {
     const response = await fetch('http://localhost:8080/api/technicians/')
