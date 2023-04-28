@@ -3,6 +3,7 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import ServiceList from './ServiceList';
 import NewServiceForm from './NewServiceForm';
+import ServiceHistory from './ServiceHistory';
 import TechnicianList from './TechnicianList';
 import NewTechnicianForm from './NewTechnicianForm';
 import { useEffect, useState } from 'react'
@@ -21,13 +22,7 @@ import AutoForm from './AutoForm';
 import SalespersonHistory from './SalespersonHistory';
 
 function App(props) {
-const [refresh, setRefresh] = useState(false);
-const refreshpage = () => {
-  setRefresh(true);6
-}
-const refreshpagereset = () => {
-  setRefresh(false);
-}
+
   return (
     <BrowserRouter>
       <Nav />
@@ -37,8 +32,8 @@ const refreshpagereset = () => {
           <Route path="technicians" index element={<TechnicianList />} />
           <Route path="technicians/create" index element={<NewTechnicianForm />} />
           <Route path="appointments" index element={<ServiceList />} />
+          <Route path="appointments/history" index element={<ServiceHistory />} />
           <Route path="appointments/create" index element={<NewServiceForm />} />
-          <Route path="/" element={<MainPage />} />
           <Route path="newmanufacturer">
             <Route path="" element={<ManufacturerForm/>} />
           </Route>
@@ -87,9 +82,3 @@ const refreshpagereset = () => {
 }
 
 export default App;
-
-
-          {/* <Route path="/appointments">
-            <Route index element={<ServiceList appointments={appointments} setAppointments={setAppointments}/>} />
-            <Route path="new" element= {<NewServiceForm />} />
-          </Route> */}

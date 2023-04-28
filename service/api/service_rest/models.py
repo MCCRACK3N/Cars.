@@ -13,22 +13,17 @@ class Technician(models.Model):
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
 
-    import_href = models.CharField(max_length=150, unique=True)
-
 
 class Appointment(models.Model):
     date_time = models.DateField()
     vip = models.BooleanField(default=False)
     reason = models.CharField(max_length=100)
-    status = models.BooleanField(default=False)
-    vin = models.CharField(max_length=17, unique=True)
+    status = models.CharField(max_length=100, default="created")
+    vin = models.CharField(max_length=17)
     customer = models.CharField(max_length=100)
     time = models.TimeField()
     technician = models.ForeignKey(
         Technician,
         related_name="technician",
         on_delete=models.CASCADE,
-        null=True
     )
-
-# 

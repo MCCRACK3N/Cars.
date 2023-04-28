@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react';
 
 function TechnicianList() {
-    const handleDelete = async (technicianId) => {
-        const response = await fetch(`http://localhost:8080/api/technicians/${technicianId}`, {
-        method:'DELETE',
-    });
-    if (response.ok) {
-        const updateTechnicians = technicians.filter((technician) => technician.id != parseInt(technicianId));
-        setTechnicians(updateTechnicians);
+    // const handleDelete = async (technicianId) => {
+    //     const response = await fetch(`http://localhost:8080/api/technicians/${technicianId}`, {
+    //     method:'DELETE',
+    // });
+    // if (response.ok) {
+    //     const updateTechnicians = technicians.filter((technician) => technician.id != parseInt(technicianId));
+    //     setTechnicians(updateTechnicians);
 
-        }
-    };
-    const [technicians, setTechnicians] = useState([]);
-    const getTechnicians = async () => {
-      const response = await fetch('http://localhost:8080/api/technicians/')
-  
-      if (response.ok) {
-        const data = await response.json();
-        setTechnicians(data.technicians);
-      }
-      else {
-        console.error(response);
-      }
+    //     }
+    // };
+  const [technicians, setTechnicians] = useState([]);
+  const getTechnicians = async () => {
+    const response = await fetch('http://localhost:8080/api/technicians/')
+
+    if (response.ok) {
+      const data = await response.json();
+      setTechnicians(data.technicians);
     }
-  
-    useEffect(() => {
-      getTechnicians ();
-    }, []);
-   
+    else {
+      console.error(response);
+    }
+  }
+
+  useEffect(() => {
+    getTechnicians ();
+  }, []);
+
 
     return (
       <>
@@ -49,9 +49,6 @@ function TechnicianList() {
                     <td>{technician.employee_id}</td>
                     <td>{technician.first_name}</td>
                     <td>{technician.last_name}</td>
-                    <td>
-                      <button onClick={() => handleDelete(technician.id)}>Delete</button>
-                    </td>
                   </tr>
                 );
               })}

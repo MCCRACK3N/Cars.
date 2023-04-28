@@ -27,7 +27,6 @@ function TechnicianForm(props){
         data.first_name = firstName;
         data.last_name = lastName;
         data.employee_id = employeeId;
-        console.log(data);
 
         const technicianUrl = "http://localhost:8080/api/technicians/";
         const fetchConfig = {
@@ -40,14 +39,13 @@ function TechnicianForm(props){
         const response = await fetch(technicianUrl, fetchConfig);
         if (response.ok) {
             const newTechnician = await response.json();
-            console.log(newTechnician);
 
             setFirstName('');
             setLastName('');
             setEmployeeId('');
             
         } else {
-            console.log("Wrong!", response);
+            console.error("Error", response);
         }
 
     
@@ -69,8 +67,6 @@ function TechnicianForm(props){
       getTechnicians ();
     }, []);
    
-
-
 
     return (
     <div className="row">
