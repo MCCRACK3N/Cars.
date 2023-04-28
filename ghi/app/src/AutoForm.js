@@ -92,7 +92,7 @@ function AutoForm() {
                                 required name="model"
                                 id="model"
                                 className="form-select" value={model} >
-                                <option value="">Choose a Manufacturer</option>
+                                <option value="">Choose a Model</option>
                                 {models?.map(model => {
                                 return (
                                 <option key={model.id} value={model.id}>

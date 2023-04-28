@@ -6,7 +6,6 @@ import NewServiceForm from './NewServiceForm';
 import ServiceHistory from './ServiceHistory';
 import TechnicianList from './TechnicianList';
 import NewTechnicianForm from './NewTechnicianForm';
-import { useEffect, useState } from 'react'
 import ManufacturerList from './ManufacturerList';
 import VehicleModelList from './VehicleModelList';
 import AutoList from './AutoList';
