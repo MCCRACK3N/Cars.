@@ -43,22 +43,21 @@ function SaleForm() {
 
         if (response.ok) {
             const newSale = await response.json();
-        }
-        const autoFetchConfig = {
-            method: "put",
-            body: JSON.stringify({ sold: true}),
-            headers: {
-                "Content-Type": "application/json"
+            const autoFetchConfig = {
+                method: "put",
+                body: JSON.stringify({ sold: true}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
             }
-        }
-        const autoResponse = await fetch(`${autoUrl}${vin}/`, autoFetchConfig);
-        if (autoResponse.ok) {
-            setVin('');
-            setSalesperson('');
-            setCustomer('');
-            setPrice('');
-        }
-        }
+            const autoResponse = await fetch(`${autoUrl}${vin}/`, autoFetchConfig);
+            if (autoResponse.ok) {
+                setVin('');
+                setSalesperson('');
+                setCustomer('');
+                setPrice('');
+            }
+            } }
 
     const customerfetchData = async () => {
         const customerurl = 'http://localhost:8090/api/customers/';
