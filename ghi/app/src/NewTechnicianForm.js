@@ -48,7 +48,6 @@ function TechnicianForm(props){
             console.error("Error", response);
         }
 
-    
     };
     const [technicians, setTechnicians] = useState([]);
     const getTechnicians = async () => {

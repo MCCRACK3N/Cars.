@@ -31,7 +31,7 @@ Once the docker containers are running you can go to http://localhost:3000/ and 
 
 ####Lets Get Started!
 
-Before we begin please make sure Docker Desktop is downloaded before procdeing to the directions below. 
+Before we begin please make sure Docker Desktop is downloaded before proceding to the directions below. 
 
 ######Download link: Docker Desktop. Please visit their website if there are issues downloading. 
 https://desktop.docker.com/mac/main/amd64/Docker.dmg?utm_source=docker&utm_medium=webreferral&utm_campaign=dd-smartbutton&utm_location=module
@@ -41,7 +41,7 @@ https://desktop.docker.com/mac/main/amd64/Docker.dmg?utm_source=docker&utm_mediu
 
 2. Second, while in your terminal, type: `https://gitlab.com/Kevinjeet/project-beta.git`
 
-3. Lastly, we need to switch inoto the projects directory: `cd project-beta`
+3. Lastly, we need to switch into the projects directory: `cd project-beta`
 
 ####Let's Fire up Docker!
 After comploted the above, now lets enter each command in order.
@@ -71,7 +71,7 @@ After you have completed these steps succesfully, you will see your docker with 
 
 ####Lets Navigate the Server
 
-First lets head to: http://localhost:3000, this link(React) will take us to our homepage, where you can find easy access to the various other tabs we've created. Please follow below to get an indepth understand of the URLS.
+First lets head to: http://localhost:3000, this link(React) will take us to our homepage, where you can find easy access to the various other tabs we've created. Please follow below to get an in depth understand of the URLS.
 
 ####Service API
 The following Service API's uses Restful methods  that enable the user to complete the following functionallity.
@@ -80,11 +80,11 @@ The following Service API's uses Restful methods  that enable the user to comple
 This shows the list of all appointments and the ability to search by vin.
 
 ###### - List of Technicians: http://localhost:3000/technicians/
-This allows the user the see the current list of Technicians. This also displays all thier respective data to the viewers.
+This allows the user the see the current list of Technicians. This also displays all their respective data to the viewers.
 
 
 ###### - Create a Technician:http://localhost:3000/technicians/<int:pk>/
-This allows the user to create a technician with all the according data. This can allow the user to input all the technicians informaiton to be stored.
+This allows the user to create a technician with all the according data. This can allow the user to input all the technicians information to be stored.
 
 ###### - List an Appointment: http://localhost:3000/appointments/
 This list view is all the appointments that have not been completed , by cancel or finished. This shows all the data attached to the appointment, and also the ability to cancel or finish.
@@ -92,7 +92,7 @@ This list view is all the appointments that have not been completed , by cancel 
 
 ###### - Create an Appointment: http://localhost:3000/appointments/
 
-This allows the user to creat an appointment with all the according data. 
+This allows the user to create an appointment with all the according data. 
 
 
 #### - Inventory API (RESTful)

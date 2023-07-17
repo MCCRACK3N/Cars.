@@ -9,7 +9,7 @@ function ServiceForm(props){
     }
 
     const [vip, setVip] = useState('');
-    const handleVip= (event) => {
+    const handleVip = (event) => {
         const value = event.target.value;
         setVip(value);
     }
